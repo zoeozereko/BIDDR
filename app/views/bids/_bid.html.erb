@@ -1,0 +1,6 @@
+<div class="well">
+  <p><%= number_to_currency(bid.amount) %> on <%= bid.created_at.strftime("%b %d, %Y") %><p>
+  <% if bid.user.present? %>
+    <p>Bid by: <%= bid.user.name_display %></p>
+  <% end %>
+</div>

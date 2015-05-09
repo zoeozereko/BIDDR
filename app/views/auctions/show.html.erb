@@ -5,23 +5,19 @@
   <p>Reserve Price: <%= number_to_currency(@auction.reserve_price) %></p>
 
 <% if current_user != @auction.user %>
-  <%= simple_form_for [@auction, @bid] do |f| %>
-    <%= f.input :amount %>
-    <%= f.submit "Bid", class: "btn btn-info" %>
-  <% end %>
+<div class="bid_form">
+  <%= render partial: "/bids/form" %>
+</div>
 <% end %>
 <hr>
 <br>
 
 <h3>Previous Bids</h3>
+<div class="bids">
   <% @auction.bids.each do |bid| %>
-    <div class="well">
-      <p><%= number_to_currency(bid.amount) %> on <%= bid.created_at.strftime("%b %d, %Y") %><p>
-      <% if bid.user.present? %>
-        <p>Bid by: <%= bid.user.name_display %></p>
-      <% end %>
-    </div>
+  <%= render partial: "/bids/bid", locals: {bid: bid} %>
   <% end %>
+</div>
 </div>
 
 <div class="well col-md-4">

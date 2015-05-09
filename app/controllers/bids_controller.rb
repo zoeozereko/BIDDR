@@ -9,16 +9,19 @@ class BidsController < ApplicationController
     @bid = current_user.bids.new(bid_params)
     @bid.auction = @auction
     if @auction.bids.count == 0 || @bid.amount > @auction.bids.maximum(:amount)
+    respond_to do |format|
       if @bid.save
         if @bid.amount >= @auction.reserve_price
           @auction.met
           @auction.save
         end
-        redirect_to @auction, notice: "Bid has been created"
+        format.html {redirect_to @auction, notice: "Bid has been created"}
+        format.js {render :create_success}
       else
-        flash[:alert] = "Bid has not been created"
-        render "auctions/show"
+        format.html {render "auctions/show"}
+        format.js {render :create_failure}
       end
+    end
     else
       flash[:alert] = "Bid must be higher then the maximum bid"
       redirect_to @auction

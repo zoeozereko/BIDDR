@@ -1,0 +1,4 @@
+<%= simple_form_for [@auction, @bid], remote: true, html: {class: "form-horizontal"} do |f| %>
+  <%= f.input :amount %>
+  <%= f.submit "Bid", class: "btn btn-info" %>
+<% end %>

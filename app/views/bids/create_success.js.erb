@@ -1,0 +1,3 @@
+$(".bids").append("<%= j render partial: '/bids/bid', locals: {bid: @bid} %>");
+<% @bid = Bid.new %>
+$(".bid_form").html("<%= j render partial: '/bids/form' %>");
