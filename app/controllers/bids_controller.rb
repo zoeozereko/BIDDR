@@ -6,6 +6,10 @@ class BidsController < ApplicationController
     @bid.auction = @auction
     if @auction.bids.count == 0 || @bid.amount > @auction.bids.maximum(:amount)
       if @bid.save
+        if @bid.amount >= @auction.reserve_price
+          @auction.met
+          @auction.save
+        end
         redirect_to @auction, notice: "Bid has been created"
       else
         flash[:alert] = "Bid has not been created"

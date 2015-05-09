@@ -17,11 +17,19 @@
   <% end %>
 </div>
 
-<div class="col-md-4">
-  <h3>Current Price:
+<div class="well col-md-4">
+  <h3>Current Price:</h3>
   <% if @auction.bids.any? %>
-    <%= number_to_currency(@auction.bids.maximum(:amount)+1) %></h3>
+    <p><%= number_to_currency(@auction.bids.maximum(:amount)+1) %></p>
   <% else %>
     <p>No bids... yet!</p>
   <% end %>
+  <% if @auction.aasm_state == "published" %>
+    <p>Reserve Price Not Met</p>
+  <% elsif @auction.aasm_state == "reserve_met" %>
+    <p>Reserve Price Met</p>
+  <% else %>
+    <p><%= @auction.aasm_state %></p>
+  <% end %>
+
 </div>
