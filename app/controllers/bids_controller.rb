@@ -1,5 +1,9 @@
 class BidsController < ApplicationController
 
+  def index
+    @bids = current_user.bids.all
+  end
+
   def create
     @auction = Auction.find(params[:auction_id])
     @bid = current_user.bids.new(bid_params)

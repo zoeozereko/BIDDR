@@ -1,0 +1,8 @@
+<h1>My Bids</h1>
+
+<% @bids.each do |bid| %>
+<div class="well">
+  <h2><%= link_to bid.auction.title, auction_path(bid.auction) %></h2>
+  <p><%= number_to_currency(bid.amount) %></p>
+</div>
+<% end %>
