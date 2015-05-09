@@ -11,7 +11,7 @@ class AuctionsController < ApplicationController
   end
 
   def create
-    @auction = Auction.new(auction_params)
+    @auction = current_user.auctions.new(auction_params)
     if @auction.save
       flash[:notice] = "Auction has been created"
       redirect_to auction_path(@auction)
